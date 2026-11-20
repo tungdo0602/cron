@@ -1,0 +1,25 @@
+
+name: buy
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  buy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: run binary
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RNGIDLE_COOKIE: ${{ secrets.RNGIDLE_COOKIE }}
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        run: |
+          chmod +x bin/cronjob
+          ./bin/cronjob
